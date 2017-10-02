@@ -15,4 +15,10 @@ module AdHocUtils
     end if params[:ad_hoc_option_values]
     ids
   end
+
+  def ad_hoc_option_value_customizations
+    Array(params[:ad_hoc_option_value_customizations]).each_with_object([]) do |(id, value), memo|
+      memo << {id => value["value"]} if value["value"].present?
+    end
+  end
 end

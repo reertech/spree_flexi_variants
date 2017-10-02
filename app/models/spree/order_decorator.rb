@@ -47,11 +47,13 @@ module Spree
 
     def find_line_item_by_variant(variant, options = {})
       ad_hoc_option_value_ids = ( !!options[:ad_hoc_option_values] ? options[:ad_hoc_option_values] : [] )
+      ad_hoc_option_value_customizations = ( !!options[:ad_hoc_option_value_customizations] ? options[:ad_hoc_option_value_customizations] : [] )
       product_customizations = ( !!options[:product_customizations] ? options[:product_customizations].map{|ids| ids.first.to_i} : [] )
       line_items.detect do |li|
         li.variant_id == variant.id &&
            matching_configurations(li.ad_hoc_option_values, ad_hoc_option_value_ids) &&
-           matching_customizations(li.product_customizations, product_customizations)
+           matching_customizations(li.product_customizations, product_customizations) &&
+           matching_ad_hoc_customizations(li.ad_hoc_option_values_line_items, ad_hoc_option_value_customizations)
       end
     end
 
@@ -126,6 +128,19 @@ module Spree
 
       # do a set-compare here
       existing_vals == new_vals
+    end
+
+    def matching_ad_hoc_customizations(existing_povs, new_customizations)
+      # if there aren't any povs, there's a 'match'
+      return true if existing_povs.empty? && new_povs.empty?
+      # ad_hoc_option_values_line_items
+
+      existing_vals =
+        existing_povs.includes(:ad_hoc_option_values_line_item_customization).each_with_object([]) do |pov, memo|
+          memo << {pov.ad_hoc_option_value_id => pov.customization.value} if pov.customization
+        end
+
+      existing_vals.sort_by(&:first) == new_customizations.sort_by(&:first)
     end
   end
 end
