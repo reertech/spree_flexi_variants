@@ -27,6 +27,18 @@ module Spree
         end
         current_item.ad_hoc_option_values = product_option_values
 
+        # add customizations for ad hoc options.
+        # terrible code, terrible gem (╯°□°）╯︵ ┻━┻
+        ad_hoc_option_value_customizations = ( !!options[:ad_hoc_option_value_customizations] ? options[:ad_hoc_option_value_customizations] : [] )
+        ad_hoc_option_value_customizations.map do |param|
+          value_id, customization = param.first
+          ad_hoc_li = current_item.ad_hoc_option_values_line_items.detect do |item|
+            item.ad_hoc_option_value_id == value_id
+          end
+          ad_hoc_li.ad_hoc_option_values_line_item_customization =
+            AdHocOptionValuesLineItemCustomization.new(value: customization)
+        end
+
         offset_price = product_option_values.map(&:price_modifier).compact.sum + product_customizations_values.map {|product_customization| product_customization.price(variant)}.sum
 
         current_item.price = variant.price + offset_price
@@ -130,7 +142,7 @@ module Spree
       existing_vals == new_vals
     end
 
-    def matching_ad_hoc_customizations(existing_povs, new_customizations)
+    def matching_ad_hoc_customizations(existing_povs, new_povs)
       # if there aren't any povs, there's a 'match'
       return true if existing_povs.empty? && new_povs.empty?
       # ad_hoc_option_values_line_items
@@ -139,8 +151,7 @@ module Spree
         existing_povs.includes(:ad_hoc_option_values_line_item_customization).each_with_object([]) do |pov, memo|
           memo << {pov.ad_hoc_option_value_id => pov.customization.value} if pov.customization
         end
-
-      existing_vals.sort_by(&:first) == new_customizations.sort_by(&:first)
+      existing_vals.sort_by(&:first) == new_povs.sort_by(&:first)
     end
   end
 end

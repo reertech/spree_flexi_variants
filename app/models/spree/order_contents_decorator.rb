@@ -26,6 +26,18 @@ module Spree
         end.compact
         line_item.ad_hoc_option_values = product_option_values
 
+        # add customizations for ad hoc options.
+        # terrible code, terrible gem (╯°□°）╯︵ ┻━┻
+        ad_hoc_option_value_customizations = ( !!options[:ad_hoc_option_value_customizations] ? options[:ad_hoc_option_value_customizations] : [] )
+        ad_hoc_option_value_customizations.map do |param|
+          value_id, customization = param.first
+          ad_hoc_li = line_item.ad_hoc_option_values_line_items.detect do |item|
+            item.ad_hoc_option_value_id == value_id
+          end
+          ad_hoc_li.ad_hoc_option_values_line_item_customization =
+            AdHocOptionValuesLineItemCustomization.new(value: customization)
+        end
+
         offset_price = product_option_values.map(&:price_modifier).compact.sum + product_customizations_values.map {|product_customization| product_customization.price(variant)}.compact.sum
 
         if currency
