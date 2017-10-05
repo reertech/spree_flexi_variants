@@ -1,8 +1,13 @@
 <div class='customizations'>
   <%# TODO: group multi-select options (e.g. toppings) %>
   <ul class='list-group list-unstyled'>
-    <% item.ad_hoc_option_values.each do |ad_hoc_option_value| %>
-      <li><b><%= ad_hoc_option_value.option_value.option_type.presentation %>:</b> <%= ad_hoc_option_value.option_value.presentation %></li>
+    <% item.ad_hoc_option_values_line_items.each do |ad_hoc_option_values_line_item| %>
+      <% option_value = ad_hoc_option_values_line_item.ad_hoc_option_value.option_value %>
+      <% if customization = ad_hoc_option_values_line_item.ad_hoc_option_values_line_item_customization %>
+        <li><b><%= option_value.option_type.presentation %>:</b> <%= customization.value %></li>
+      <% else %>
+        <li><b><%= option_value.option_type.presentation %>:</b> <%= option_value.presentation %></li>
+      <% end %>
     <% end %>
     <% item.product_customizations.each do |customization| %>
       <% next if customization.customized_product_options.all? {|customized_product_option| customized_product_option.empty? } %>
