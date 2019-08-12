@@ -8,7 +8,7 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 
 require 'rspec/rails'
 require 'database_cleaner'
-require 'factory_girl'
+require 'factory_bot'
 require 'ffaker'
 require 'shoulda-matchers'
 require 'pry'
