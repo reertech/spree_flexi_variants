@@ -1,5 +1,5 @@
 module Spree
-  class AdHocOptionType < ActiveRecord::Base
+  class AdHocOptionType < ApplicationRecord
     belongs_to :option_type
     belongs_to :product
     has_many :ad_hoc_option_values, dependent: :destroy

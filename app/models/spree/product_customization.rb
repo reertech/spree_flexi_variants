@@ -1,5 +1,5 @@
 module Spree
-  class ProductCustomization < ActiveRecord::Base
+  class ProductCustomization < ApplicationRecord
     belongs_to :product_customization_type
     belongs_to :line_item
     has_many :customized_product_options, dependent: :destroy
