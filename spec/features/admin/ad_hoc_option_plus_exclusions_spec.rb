@@ -80,7 +80,8 @@ describe 'Ad Hoc Option Values / Ad Hoc Variant Exclusions ', js: true do
 
       #test adding an option type
       expect(page).to have_content('No Ad hoc option type found, Add One!')
-      click_on('Add One')
+      click_link_or_button('Add One')
+      sleep 1
       find('.icon.icon-add').click
       click_on('Update')
       expect(all('#ad_hoc_option_types tr').length).to eq(2)
@@ -104,7 +105,6 @@ describe 'Ad Hoc Option Values / Ad Hoc Variant Exclusions ', js: true do
       find('.icon.icon-delete').click
       # no alert box here?
       expect(page).to have_content('No Ad hoc variant exclusion found, Add One!')
-      save_and_open_screenshot
     end
 
   end

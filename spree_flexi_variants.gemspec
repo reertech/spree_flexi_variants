@@ -20,20 +20,21 @@ Gem::Specification.new do |s|
 
   s.add_dependency('carrierwave')
   s.add_dependency('mini_magick')
-  s.add_dependency 'spree', spree_version
+  s.add_dependency 'spree', '~> 3.2.7'
 
-  s.add_development_dependency 'capybara',           '~> 2.1'
+  s.add_development_dependency 'capybara'
   s.add_development_dependency 'coffee-rails'
   s.add_development_dependency 'coveralls'
   s.add_development_dependency 'database_cleaner',   '~> 1.0.1'
-  s.add_development_dependency 'factory_bot_rails'
+  s.add_development_dependency 'factory_bot_rails', '~> 4.11'
   s.add_development_dependency 'ffaker'
-  s.add_development_dependency 'rspec-rails',        '~> 2.13'
+  s.add_development_dependency 'puma'
+  s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'shoulda-matchers'
-  s.add_development_dependency 'simplecov', '~> 0.9.0'
-  s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'simplecov'
+  s.add_development_dependency 'sqlite3', '~> 1.3.6'
   s.add_development_dependency 'launchy'
   #remove later
   s.add_development_dependency 'better_errors'

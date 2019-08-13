@@ -11,12 +11,12 @@ describe 'Product Customizations', js: true do
     end
 
     def create_product_customization_type
-      create(:product_customization_type, name: 'text', presentation: 'Text')
+      create(:product_customization_type, name: 'custom_name', presentation: 'Custom_present')
     end
 
     def go_to_product_customization
       click_on('Customization Types')
-      expect(page).to have_content('Add Product Customization Type')
+      expect(page).to have_content('New Product Customization Type')
     end
 
     it 'product customization add/remove existing customization types' do
@@ -24,14 +24,23 @@ describe 'Product Customizations', js: true do
       go_to_product_page
       go_to_product_customization
 
-      click_on('Add Product Customization Type')
-      find('.icon.icon-add').click
-      expect(all('#selected-customization-types tbody tr').length).to eq(1)
+      click_on('New Product Customization Type')
+      fill_in('Name', :with => 'John')
+      fill_in('Presentation', :with => 'Zolupa')
+      find('.icon.icon-ok').click
+      visit '/admin'
+      click_on 'Products'
+      click_on 'Customization Types'
+      expect(all('#product_customization_types tbody tr').length).to eq(2)
 
       #test remove
-      find('.icon.icon-delete').click
-      expect(page).to have_content('Product Customization Type Removed')
-      expect(page).to have_content('No Product customization found, Add One!')
+      page.accept_alert 'Are you sure?' do
+        find('.icon.icon-delete').click
+      end
+
+      expect(page).to have_content("Product customization type \"custom_name\" has been successfully removed!")
+      expect(page).to have_content('Name Presentation Description John Zolupa')
+      expect(page).not_to have_content('Name Presentation Description custom_name Custom_present')
     end
 
   end
