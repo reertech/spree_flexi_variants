@@ -16,19 +16,16 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-  spree_version = '>= 3.7.0', '< 4.0'
 
   s.add_dependency('carrierwave')
   s.add_dependency('mini_magick')
-  s.add_dependency 'spree', '~> 3.2.7'
 
   s.add_development_dependency 'capybara'
   s.add_development_dependency 'coffee-rails'
   s.add_development_dependency 'coveralls'
-  s.add_development_dependency 'database_cleaner',   '~> 1.0.1'
+  s.add_development_dependency 'database_cleaner'
   s.add_development_dependency 'factory_bot_rails', '~> 4.11'
   s.add_development_dependency 'ffaker'
-  s.add_development_dependency 'puma'
   s.add_development_dependency 'rspec-rails'
   s.add_development_dependency 'sass-rails'
   s.add_development_dependency 'selenium-webdriver'
@@ -43,3 +40,4 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'jazz_fingers'
 
 end
+
