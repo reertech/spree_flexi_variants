@@ -1,8 +1,3 @@
-//= require jquery.formatCurrency-1.4.0
-//= require jquery.formatCurrency.all
-//= require jquery.validateform
-//= require spree/frontend/validate_form
-
 Spree.ready(function () {
   // set up the 'reset' functionality on file uploads
   $("#cart-form form input[type=file]").each(function () {
