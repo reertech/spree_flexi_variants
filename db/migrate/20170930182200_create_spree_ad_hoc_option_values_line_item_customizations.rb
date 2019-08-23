@@ -1,4 +1,4 @@
-class CreateSpreeAdHocOptionValuesLineItemCustomizations < ActiveRecord::Migration
+class CreateSpreeAdHocOptionValuesLineItemCustomizations < ActiveRecord::Migration[4.2]
   def self.up
     create_table :spree_ad_hoc_option_values_line_item_customizations do |t|
       t.string :value

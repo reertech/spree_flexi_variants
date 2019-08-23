@@ -1,5 +1,5 @@
 module Spree
-  class ProductCustomizationType < ApplicationRecord
+  class ProductCustomizationType < ActiveRecord::Base
     include Spree::CalculatedAdjustments
     has_and_belongs_to_many :products
     has_many :customizable_product_options, dependent: :destroy

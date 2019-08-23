@@ -16,7 +16,6 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.requirements << 'none'
 
-
   s.add_dependency('carrierwave')
   s.add_dependency('mini_magick')
 
@@ -27,12 +26,14 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'factory_bot_rails', '~> 4.11'
   s.add_development_dependency 'ffaker'
   s.add_development_dependency 'rspec-rails'
-  s.add_development_dependency 'sass-rails'
+  s.add_development_dependency 'sassc-rails'
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'shoulda-matchers'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'sqlite3', '~> 1.3.6'
   s.add_development_dependency 'launchy'
+  s.add_development_dependency 'sass'
+  s.add_development_dependency 'puma'
   #remove later
   s.add_development_dependency 'better_errors'
   s.add_development_dependency 'binding_of_caller'
