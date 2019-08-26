@@ -3,7 +3,7 @@ module ProductCustomizations
   def product_customizations
     customizations = []
     # do we have any customizations?
-    params[:product_customizations].each do |customization_type_id, customization_pair_value|  # customization_type_id =>
+    params[:product_customizations].to_unsafe_h.each do |customization_type_id, customization_pair_value|  # customization_type_id =>
       # {customized_product_option_id => <user input>,  etc.}
       next if customization_pair_value.empty? || customization_pair_value.values.all? {|value| value.empty?}
       # create a product_customization based on customization_type_id

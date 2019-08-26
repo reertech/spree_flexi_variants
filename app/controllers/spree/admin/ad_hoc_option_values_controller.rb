@@ -1,7 +1,7 @@
 module Spree
   class Admin::AdHocOptionValuesController < Admin::ResourceController
     def update_positions
-      params[:positions].each do |id, index|
+      params[:positions].to_unsafe_h.each do |id, index|
         AdHocOptionValue.where(id: id).update_all(position: index)
       end
 

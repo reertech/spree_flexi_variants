@@ -6,7 +6,7 @@ module Spree
     def create
       return unless params["ad_hoc_option_type"]
       ave = AdHocVariantExclusion.new
-      params["ad_hoc_option_type"].each_pair do |otid, ovid|
+      params["ad_hoc_option_type"].to_unsafe_h.each_pair do |otid, ovid|
         next if ovid.empty?
         eov = ExcludedAdHocOptionValue.create(ad_hoc_variant_exclusion: ave, ad_hoc_option_value_id: ovid)
       end
