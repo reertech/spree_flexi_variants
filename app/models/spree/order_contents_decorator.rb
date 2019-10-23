@@ -10,10 +10,12 @@ module Spree
         line_item.quantity += quantity.to_i
         line_item.currency = currency unless currency.nil?
       else
-        options_params = options.is_a?(ActionController::Parameters) ? options : ActionController::Parameters.new(options.to_h)
-        opts = options_params.
-          permit(PermittedAttributes.line_item_attributes).to_h.
-          merge(currency: order.currency)
+        # options_params = options.is_a?(ActionController::Parameters) ? options : ActionController::Parameters.new(options.to_h)
+        # opts = options_params.
+        #   permit(PermittedAttributes.line_item_attributes).to_h.
+        #   merge(currency: order.currency)
+        #
+        opts = { currency: order.currency }.merge ActionController::Parameters.new(options.to_unsafe_h).to_unsafe_h
 
         line_item = order.line_items.new(quantity: quantity, variant: variant, options: opts)
 
