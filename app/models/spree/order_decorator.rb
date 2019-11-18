@@ -78,7 +78,7 @@ module Spree
         # Make sure you allow any extensions to chime in on whether or
         # not the extension-specific parts of the line item match
         current_line_item = self.line_items.detect do |my_li|
-          my_li.variant == other_order_line_item.variant && self.line_item_comparison_hooks.all? do |hook|
+          my_li.variant == other_order_line_item.variant && Rails.application.config.spree.line_item_comparison_hooks.all? do |hook|
             self.send(hook, my_li, other_order_line_item.serializable_hash)
           end
         end
