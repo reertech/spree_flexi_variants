@@ -9,9 +9,9 @@ module Spree
       unless self.ad_hoc_option_values.empty?
 
         #TODO: group multi-select options (e.g. toppings)
-        str << self.ad_hoc_option_values.each { |pov|
+        str = self.ad_hoc_option_values.map do |pov|
           "#{pov.option_value.option_type.presentation} = #{pov.option_value.presentation}"
-        }.join(',')
+        end.join(',')
       end # unless empty?
 
       unless self.product_customizations.empty?
