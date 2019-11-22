@@ -87,10 +87,10 @@ module Spree
             [current_line_item.quantity + other_order_line_item.quantity,
              current_line_item.variant.stock_items.sum(&:count_on_hand)].min
 
-          current_line_item.save!
+          destroy_or_save(current_line_item, current_line_item.quantity)
         else
           other_order_line_item.order_id = self.id
-          other_order_line_item.save!
+          destroy_or_save(other_order_line_item, other_order_line_item.variant.stock_items.sum(&:count_on_hand))
         end
       end
       order.line_items.each do |line_item|
@@ -121,6 +121,10 @@ module Spree
 
     #   Set.new pairs
     # end
+    #
+    def destroy_or_save(line_item, line_item_quantity)
+      line_item_quantity.zero? ? line_item.destroy! : line_item.save!
+    end
 
     def matching_configurations(existing_povs, new_povs)
       # if there aren't any povs, there's a 'match'
