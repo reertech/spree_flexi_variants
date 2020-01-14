@@ -11,8 +11,9 @@ module AddItemDecorator
     options.permit(ad_hoc_option_values: [], product_customizations: [], ad_hoc_option_value_customizations: [])
     options_params = options.is_a?(ActionController::Parameters) ? options : ActionController::Parameters.new(options.to_h)
     options_params.permit(Spree::PermittedAttributes.line_item_attributes).to_h.merge(currency: order.currency)
-
-    line_item = order.line_items.new(quantity: quantity, variant: variant)
+    
+    options_without_ad_hocs = options.except('ad_hoc_option_values', 'ad_hoc_option_value_customizations', 'product_customizations')
+    line_item = order.line_items.new(quantity: quantity, variant: variant, options: options_without_ad_hocs)
     line_item_created = line_item.nil?
 
     product_customizations_values = options[:product_customizations] || []

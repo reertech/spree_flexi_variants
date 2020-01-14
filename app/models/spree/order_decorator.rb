@@ -9,7 +9,8 @@ module Spree
         current_item.quantity += quantity
         current_item.save
       else
-        current_item = LineItem.new(quantity: quantity, variant: variant, options: options)
+        options_without_ad_hocs = options.except(:ad_hoc_option_values, :ad_hoc_option_value_customizations, :product_customizations)
+        current_item = LineItem.new(quantity: quantity, variant: variant, options: options_without_ad_hocs)
 
         product_customizations_ids = ( !!options[:product_customizations] ? options[:product_customizations].map{|ids| ids.first.to_i} : [] )
         product_customizations_values = product_customizations_ids.map do |cid|
