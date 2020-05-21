@@ -14,15 +14,15 @@ module IntegrationHelpers
 
   def go_to_product_page
     visit '/admin'
-    click_on 'Products'
+    click_on 'Products', visible: true
     expect(find('#sidebar-product').visible?).to eq(true)
     within("#sidebar-product") do
-      click_on("Products")
+      click_on("Products", visible: true)
     end
     within('.content-header') do
       expect(page).to have_content('Products')
     end
-    click_on 'Test Product'
+    click_on 'Test Product', visible: true
     within('.content-header') do
       expect(page).to have_content('Products / Test Product')
     end
