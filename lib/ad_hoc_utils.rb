@@ -1,5 +1,4 @@
 module AdHocUtils
-
   def ad_hoc_option_value_ids # (variant_id)
     ids = []
     params[:ad_hoc_option_values].to_unsafe_h.each do |ignore, product_option_value_id|

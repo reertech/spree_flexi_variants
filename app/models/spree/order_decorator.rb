@@ -1,5 +1,5 @@
 module Spree
-  Order.class_eval do
+  module OrderDecorator
     # FIXTHIS this is exactly the same it seems as Order Content add to line item.
     #this whole thing needs a refactor!
     def add_variant(variant, quantity = 1, options = {})
@@ -163,3 +163,5 @@ module Spree
     end
   end
 end
+
+::Spree::Order.prepend(Spree::OrderDecorator)
