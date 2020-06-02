@@ -24,3 +24,5 @@ module Spree
     end
   end
 end
+
+::Spree::Api::V2::Storefront::CartController.prepend(Spree::Api::V2::Storefront::CartControllerDecorator)
