@@ -1,23 +1,23 @@
 <% product ||= @product %>
-<% if !!@product.ad_hoc_option_types && @product.ad_hoc_option_types.present? %>
+<% if !!product.ad_hoc_option_types && product.ad_hoc_option_types.present? %>
   <% lookup = ActionView::LookupContext.new(ActionController::Base.view_paths, {formats: [:html]}) %>
 
   <div id="ad_hoc_options" class="full-width">
     <div class='col-sm-12'>
       <h3 class="product-section-title"><%= Spree.t(:select_variant_options) %></h3>
-      <% if @product.ad_hoc_variant_exclusions.present? %>
+      <% if product.ad_hoc_variant_exclusions.present? %>
         <h6 id="not_all_available">
           <%= Spree.t(:not_all_combinations_available) %>
         </h6>
       <% end %>
     </div>
     <ul class="list-group list-unstyled">
-      <% @product.ad_hoc_option_types.each do |ad_hoc_option_type| %>
+      <% product.ad_hoc_option_types.each do |ad_hoc_option_type| %>
         <%# ugly logic %>
         <% option_type = ad_hoc_option_type.option_type %>
         <% class_str = 'ad-hoc-option-select' %>
         <% class_str += ' required' if ad_hoc_option_type.is_required %>
-        <% class_str += ' ad_hoc' if @product.ad_hoc_variant_exclusions.present? %>
+        <% class_str += ' ad_hoc' if product.ad_hoc_variant_exclusions.present? %>
         <%# render a custom partial based on the option type name? %>
         <% partial_name = "spree/products/ad_hoc_options/#{option_type.name.gsub(/(-)|(\s)/,"_").downcase}" %>
 
